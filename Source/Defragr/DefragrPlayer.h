@@ -71,7 +71,6 @@ public:
 	void SetRelativeVelocity(FVector NewVelocity);
 
 	/* Gets the velocity of the player */
-	UFUNCTION(BlueprintCallable, Category = "DefragrCharacter")
 	virtual FVector GetVelocity() const override; // Need override here because APawn has this function as well
 
 	/* Sets the player's viewing angles */
