@@ -16,7 +16,6 @@ UDefragrPlayerMoveComponent::UDefragrPlayerMoveComponent(const FObjectInitialize
 {
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
-	bWantsBeginPlay = true;
 	PrimaryComponentTick.bCanEverTick = true;
 }
 
@@ -149,7 +148,7 @@ void UDefragrPlayerMoveComponent::AirMove()
 {
 	FVector wishDirection;
 	FVector currentVelocity;
-	float dynamicAcceleration;
+	float dynamicAcceleration = 0;
 
 	//ApplyFriction();
 

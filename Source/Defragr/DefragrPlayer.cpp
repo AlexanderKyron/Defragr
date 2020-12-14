@@ -6,7 +6,6 @@
 #include "DefragrPlayer.h"
 #include "DefragrPlayerMoveComponent.h"
 #include "DefragrPlayerCollisionComponent.h"
-#include "Weapon.h"
 
 #include "Engine.h"
 #include "Components/ArrowComponent.h"

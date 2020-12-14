@@ -6,6 +6,8 @@ public class Defragr : ModuleRules
 {
 	public Defragr(ReadOnlyTargetRules Target) : base (Target)
 	{
+		PrivatePCHHeaderFile = "Defragr.h";
+
 		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore" });
 	}
 }

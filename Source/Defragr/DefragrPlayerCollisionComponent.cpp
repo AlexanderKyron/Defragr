@@ -13,7 +13,6 @@
 // Sets default values for this component's properties
 UDefragrPlayerCollisionComponent::UDefragrPlayerCollisionComponent()
 {
-	bWantsBeginPlay = true;
 	PrimaryComponentTick.bCanEverTick = true;
 }
 
@@ -295,11 +294,10 @@ bool UDefragrPlayerCollisionComponent::Trace(FHitResult& Result, FVector Start, 
 	// Get the player's collider extents (note that in this case
 	// the collider is required to be a box).
 	FCollisionShape CollisionShape = Player->Collider->GetCollisionShape();
-
 	FCollisionQueryParams QueryParams(TEXT(""), false);
 	FCollisionObjectQueryParams ObjectQueryParams(ECC_WorldStatic);
 
-	bool Hit = GetWorld()->SweepSingle(Result, Start, End, FQuat::Identity, CollisionShape, QueryParams, ObjectQueryParams);
+	bool Hit = GetWorld()->SweepSingleByObjectType(Result, Start, End, FQuat::Identity, ObjectQueryParams, CollisionShape, QueryParams);
 	
 	return Hit;
 }
