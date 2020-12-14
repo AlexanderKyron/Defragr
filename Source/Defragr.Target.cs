@@ -8,7 +8,7 @@ public class DefragrTarget : TargetRules
 	public DefragrTarget(TargetInfo Target) : base(Target)
 	{
 		Type = TargetType.Game;
-		ExtraModuleNames.Add("RC");
+		ExtraModuleNames.Add("Defragr");
 		
 	}
 

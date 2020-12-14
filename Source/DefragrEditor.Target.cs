@@ -8,7 +8,7 @@ public class DefragrEditorTarget : TargetRules
 	public DefragrEditorTarget(TargetInfo Target) : base(Target)
 	{
 		Type = TargetType.Editor;
-		ExtraModuleNames.Add("RC");
+		ExtraModuleNames.Add("Defragr");
 	}
 
 	//
