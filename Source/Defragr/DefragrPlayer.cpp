@@ -35,7 +35,7 @@ ADefragrPlayer::ADefragrPlayer()
 	// Add physical reference to the player's forward vector
 	PlayerForwardRefComponent = CreateDefaultSubobject<USceneComponent>(TEXT("Player Forward"));
 	if(PlayerForwardRefComponent)
-		PlayerForwardRefComponent->AttachParent = Collider;
+		PlayerForwardRefComponent->AttachTo(Collider);
 
 	// Add a helper
 #if WITH_EDITORONLY_DATA
@@ -46,14 +46,14 @@ ADefragrPlayer::ADefragrPlayer()
 		ArrowComponent->bTreatAsASprite = true;
 		ArrowComponent->SpriteInfo.Category = ConstructorStatics.ID_Characters;
 		ArrowComponent->SpriteInfo.DisplayName = ConstructorStatics.NAME_Characters;
-		ArrowComponent->AttachParent = PlayerForwardRefComponent;
+		ArrowComponent->AttachTo(PlayerForwardRefComponent);
 		ArrowComponent->bIsScreenSizeScaled = true;
 	}
 #endif
 
 	// Initialize the camera
 	FirstPersonCameraComponent = CreateDefaultSubobject<UCameraComponent>(TEXT("First Person Camera"));
-	FirstPersonCameraComponent->AttachParent = PlayerForwardRefComponent;
+	FirstPersonCameraComponent->AttachTo(PlayerForwardRefComponent);
 	FirstPersonCameraComponent->SetRelativeLocation(FVector(0.f, 0.f, 56.f - 4.f));
 
 	// Add the character collision and movement component
@@ -75,8 +75,6 @@ ADefragrPlayer::ADefragrPlayer()
 		MovementComponent->Player = this;
 	}
 
-	// Initialize the weapon slots
-	Slots.Init(NULL, 10);
 }
 
 void ADefragrPlayer::SetupPlayerInputComponent(UInputComponent* InputComponent)
@@ -94,9 +92,6 @@ void ADefragrPlayer::SetupPlayerInputComponent(UInputComponent* InputComponent)
 	InputComponent->BindAxis("Turn", this, &ADefragrPlayer::MouseX);
 	InputComponent->BindAxis("LookUp", this, &ADefragrPlayer::MouseY);
 
-	// Set up scroll input
-	InputComponent->BindAction("ScrollUp", IE_Pressed, this, &ADefragrPlayer::ScrollUp);
-	InputComponent->BindAction("ScrollDown", IE_Pressed, this, &ADefragrPlayer::ScrollDown);
 }
 
 void ADefragrPlayer::Tick(float DeltaTime)
@@ -115,61 +110,6 @@ void ADefragrPlayer::Tick(float DeltaTime)
 	}
 }
 
-void ADefragrPlayer::NextWeapon()
-{
-	ChangeToSlot++;
-
-	if(ChangeToSlot > 9)
-		ChangeToSlot = 9;
-
-	ChangeWeapon = true;
-}
-
-void ADefragrPlayer::PreviousWeapon()
-{
-	ChangeToSlot--;
-
-	if(ChangeToSlot < 0)
-		ChangeToSlot = 0;
-
-	ChangeWeapon = true;
-}
-
-void ADefragrPlayer::Weapon(uint8 SlotID)
-{
-	ChangeToSlot = SlotID;
-	ChangeWeapon = true;
-}
-
-void ADefragrPlayer::PickupWeapon(TSubclassOf<AWeapon> Weapon)
-{
-	AWeapon* DefaultWeapon = Weapon->GetDefaultObject<AWeapon>();
-
-	if(DefaultWeapon == NULL)
-		return;
-
-	// Ensure we have a valid slot ID for the weapon
-	if(DefaultWeapon->SlotID > 9)
-		return;
-
-	// If there is no weapon described here, then add it
-	if(Slots[DefaultWeapon->SlotID] == NULL)
-	{
-		Slots[DefaultWeapon->SlotID] = DefaultWeapon;
-		return;
-	}
-	
-	// When we get to this point, there is a weapon already in the slot
-	// if it's the same type of weapon then just call the extra pickup
-	// otherwise just re-assign the weapon slot.
-	if(Slots[DefaultWeapon->SlotID]->WeaponType == DefaultWeapon->WeaponType)
-	{
-		Slots[DefaultWeapon->SlotID]->ExtraPickup();
-		return;
-	}
-
-	Slots[DefaultWeapon->SlotID] = DefaultWeapon;
-}
 
 void ADefragrPlayer::UpdateViewingAngles()
 {
@@ -194,53 +134,12 @@ void ADefragrPlayer::PossessedBy(AController* NewController)
 	Controller = NewController;
 }
 
-void ADefragrPlayer::StartRaceTimer()
-{
-	GetWorldTimerManager().SetTimer(HRaceTimeTick, this, &ADefragrPlayer::RaceTimeTick, 0.001f, true);
-}
-
-void ADefragrPlayer::StopRaceTimer()
-{
-	GetWorldTimerManager().ClearTimer(HRaceTimeTick);
-}
-
-void ADefragrPlayer::ResetRaceTimer()
-{
-	RaceTime = 0;
-	StopRaceTimer();
-}
-
-int32 ADefragrPlayer::GetRaceTime()
-{
-	return RaceTime;
-}
-
-FString ADefragrPlayer::GetRaceTimeString()
-{
-	const int32 Minutes      = FMath::FloorToInt((RaceTime / 1000) / 60);
-	const int32 Seconds      = FMath::FloorToInt((RaceTime / 1000) % 60);
-	const int32 Milliseconds = RaceTime % 1000;
-
-	if(Minutes > 0)
-		return FString::Printf(TEXT("%d:%d.%03d"), Minutes, Seconds, Milliseconds);
-	else
-		return FString::Printf(TEXT("%d.%03d"), Seconds, Milliseconds);
-}
-
-void ADefragrPlayer::RaceTimeTick()
-{
-	RaceTime++;
-}
 
 void ADefragrPlayer::PlayJumpSound()
 {
 	UGameplayStatics::PlaySoundAtLocation(this, JumpSoundCue, GetTransform().GetLocation());
 }
 
-void ADefragrPlayer::PlayTeleportSound()
-{
-	UGameplayStatics::PlaySoundAtLocation(this, TeleportSoundCue, GetTransform().GetLocation());
-}
 
 void ADefragrPlayer::SetPosition(FVector NewPosition)
 {
@@ -331,15 +230,7 @@ void ADefragrPlayer::MouseY(float Value)
 	MouseVelocity.Y = Value;
 }
 
-void ADefragrPlayer::ScrollUp()
-{
-	NextWeapon();
-}
 
-void ADefragrPlayer::ScrollDown()
-{
-	PreviousWeapon();
-}
 
 FVector2D ADefragrPlayer::ConsumeMovementInput()
 {

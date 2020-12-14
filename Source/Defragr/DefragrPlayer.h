@@ -11,7 +11,7 @@
 class UDefragrPlayerMoveComponent;
 class UDefragrPlayerCollisionComponent;
 class UPrimitiveComponent;
-class AWeapon;
+class USoundCue;
 
 
 UCLASS(config = Game, BlueprintType, hideCategories = ("Pawn|DefragrCharacter|InternalEvents"), meta = (ShortTooltip = "Custom character specifically built for Q3 movement."))
@@ -44,78 +44,14 @@ public:
 	int32 Armour = 0;
 
 public:
-	UPROPERTY(Category = "Weapons", EditAnywhere, BlueprintReadWrite)
-	TArray<AWeapon*> Slots;
-
-	/* The currently active slot the player is using */
-	UPROPERTY(Category = "Weapons", EditAnywhere, BlueprintReadWrite)
-	uint8 ActiveSlot = 0;
-
-	/* Force player to swap to the next weapon in his inventory */
-	UFUNCTION(BlueprintCallable, Category = "Weapon")
-	void NextWeapon();
-	
-	/* Force player to swap to the previous weapon in his inventory */
-	UFUNCTION(BlueprintCallable, Category = "Weapon")
-	void PreviousWeapon();
-
-	/* Force player to swap to the specified slot ID */
-	UFUNCTION(BlueprintCallable, Category = "Weapon")
-	void Weapon(uint8 SlotID);
-
-	/* True when the player needs to change weapons, read on tick */
-	UPROPERTY(Category = "Weapons", VisibleAnywhere, BlueprintReadOnly)
-	bool ChangeWeapon = false;
-
-	/* The slot ID to change to when ChangeWeapon is true, read on tick */
-	UPROPERTY(Category = "Weapons", VisibleAnywhere, BlueprintReadOnly)
-	uint8 ChangeToSlot = 0;
-
-public:
-	void PickupWeapon(TSubclassOf<AWeapon> Weapon);
-
-public:
 	UPROPERTY(Category = "Sounds", EditAnywhere, BlueprintReadWrite)
 	USoundCue* JumpSoundCue;
 
 	UPROPERTY(Category = "Sounds", EditAnywhere, BlueprintReadWrite)
 	USoundCue* HardLandingSoundCue;
 
-	UPROPERTY(Category = "Sounds", EditAnywhere, BlueprintReadWrite)
-	USoundCue* TeleportSoundCue;
-
 	void PlayJumpSound();
-	void PlayTeleportSound();
 
-public:
-	FTimerHandle HRaceTimeTick;
-
-	/* Current race time in milliseconds */
-	int32 RaceTime = 0;
-
-	/* Fastest lap time in milliseconds */
-	int32 FastestRaceTime = 0;
-
-	/* Checkpoint split times in milliseconds */
-	TArray<int32> RaceSplitTimes;
-
-	UFUNCTION(BlueprintCallable, Category = "Gameplay")
-	void StartRaceTimer();
-
-	UFUNCTION(BlueprintCallable, Category = "Gameplay")
-	void StopRaceTimer();
-
-	UFUNCTION(BlueprintCallable, Category = "Gameplay")
-	void ResetRaceTimer();
-
-	UFUNCTION(BlueprintCallable, Category = "Gameplay")
-	int32 GetRaceTime();
-
-	UFUNCTION(BlueprintCallable, Category = "Gameplay")
-	FString GetRaceTimeString();
-
-	/* Called from a timer that's set for every millisecond */
-	void RaceTimeTick();
 
 public:
 	/* Sets the position of the player */
