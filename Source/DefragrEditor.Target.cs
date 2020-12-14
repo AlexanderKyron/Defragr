@@ -5,21 +5,15 @@ using System.Collections.Generic;
 
 public class DefragrEditorTarget : TargetRules
 {
-	public DefragrEditorTarget(TargetInfo Target)
+	public DefragrEditorTarget(TargetInfo Target) : base(Target)
 	{
 		Type = TargetType.Editor;
+		ExtraModuleNames.Add("RC");
 	}
 
 	//
 	// TargetRules interface.
 	//
 
-	public override void SetupBinaries(
-		TargetInfo Target,
-		ref List<UEBuildBinaryConfiguration> OutBuildBinaryConfigurations,
-		ref List<string> OutExtraModuleNames
-		)
-	{
-		OutExtraModuleNames.Add("Defragr");
-	}
+	
 }

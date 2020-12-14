@@ -4,7 +4,7 @@ using UnrealBuildTool;
 
 public class Defragr : ModuleRules
 {
-	public Defragr(TargetInfo Target)
+	public Defragr(ReadOnlyTargetRules Target) : base (Target)
 	{
 		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore" });
 	}

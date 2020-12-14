@@ -5,21 +5,15 @@ using System.Collections.Generic;
 
 public class DefragrTarget : TargetRules
 {
-	public DefragrTarget(TargetInfo Target)
+	public DefragrTarget(TargetInfo Target) : base(Target)
 	{
 		Type = TargetType.Game;
+		
 	}
 
 	//
 	// TargetRules interface.
 	//
 
-	public override void SetupBinaries(
-		TargetInfo Target,
-		ref List<UEBuildBinaryConfiguration> OutBuildBinaryConfigurations,
-		ref List<string> OutExtraModuleNames
-		)
-	{
-		OutExtraModuleNames.Add("Defragr");
-	}
+
 }
