@@ -1,3 +1,6 @@
-# Defragr 4.26
-Fork of Defragr which I intend to update and turn into a plugin.
-Original by ReKTeK
+# AFPS Movement Plugin
+
+Plugin for Unreal Engine 4 for a modular arena shooter style player.
+Includes movement, collision and basic player pawn class.
+
+Forked "Defragr" game from ReKTeK/Defragr, stripped out movement logic, transformed into a plugin and updated for UE 4.26.
