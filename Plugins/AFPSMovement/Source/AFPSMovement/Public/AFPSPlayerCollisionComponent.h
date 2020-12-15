@@ -1,4 +1,11 @@
-/* Copyright (C) Terence-Lee 'Zinglish' Davis
+/*
+ * AFPS Player
+ *
+ * Updated for UE 4.26 and made into a plugin by Alex Kyron
+ * Copyright (C) Alexander Kyron 2020 <alex@alexkyron.xyz>
+ *
+ * Originally forked from DeFragr:
+ * Copyright (C) Terence-Lee 'Zinglish' Davis
  * Written by Terence-Lee 'Zinglish' Davis <zinglish[at]gmail.com>
  */
 
