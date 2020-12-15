@@ -1,0 +1,2 @@
+D:\DeFragr\DeFraGr\Plugins\AFPSMovement\Intermediate\Build\Win64\UE4Editor\Development\AFPSMovement\Definitions.AFPSMovement.h
+D:\DeFragr\DeFraGr\Plugins\AFPSMovement\Source\AFPSMovement\Public\AFPSMovement.h

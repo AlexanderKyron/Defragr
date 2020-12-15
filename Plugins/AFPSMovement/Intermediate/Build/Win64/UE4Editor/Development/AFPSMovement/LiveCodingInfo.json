@@ -1,0 +1,17 @@
+{
+	"RemapUnityFiles": 
+	{
+		"Module.AFPSMovement.cpp.obj": [
+			"AFPSMovement.cpp.obj",
+			"AFPSPlayer.cpp.obj",
+			"AFPSPlayerCollisionComponent.cpp.obj",
+			"DefragrPlayerMoveComponent.cpp.obj"
+		],
+		"Module.AFPSMovement.gen.cpp.obj": [
+			"AFPSMovement.init.gen.cpp.obj",
+			"AFPSPlayer.gen.cpp.obj",
+			"AFPSPlayerCollisionComponent.gen.cpp.obj",
+			"AFPSPlayerMoveComponent.gen.cpp.obj"
+		]
+	}
+}

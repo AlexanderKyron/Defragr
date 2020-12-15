@@ -1,0 +1,14 @@
+/NOLOGO
+/errorReport:prompt
+/MACHINE:x64
+/SUBSYSTEM:WINDOWS
+/DEF
+/NAME:"UE4Editor-AFPSMovement.dll"
+/IGNORE:4221
+/NODEFAULTLIB
+"D:\DeFragr\DeFraGr\Intermediate\Build\Win64\DefragrEditor\Development\Engine\SharedPCH.Engine.h.obj"
+"D:\DeFragr\DeFraGr\Plugins\AFPSMovement\Intermediate\Build\Win64\UE4Editor\Development\AFPSMovement\Module.AFPSMovement.cpp.obj"
+"D:\DeFragr\DeFraGr\Plugins\AFPSMovement\Intermediate\Build\Win64\UE4Editor\Development\AFPSMovement\Module.AFPSMovement.gen.cpp.obj"
+"D:\DeFragr\DeFraGr\Plugins\AFPSMovement\Intermediate\Build\Win64\UE4Editor\Development\AFPSMovement\Default.rc2.res"
+/OUT:"D:\DeFragr\DeFraGr\Plugins\AFPSMovement\Intermediate\Build\Win64\UE4Editor\Development\AFPSMovement\UE4Editor-AFPSMovement.lib"
+/INCLUDE:IMPLEMENT_MODULE_AFPSMovement
