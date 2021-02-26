@@ -36,7 +36,7 @@ public:
 	virtual void PossessedBy(AController* NewController);
 
 	/** Called when the controller sets up the input for the pawn */
-	virtual void SetupPlayerInputComponent(class UInputComponent* InputComponent) override;
+	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	/** Per frame tick */
 	virtual void Tick(float Delta);
@@ -125,7 +125,7 @@ public:
 	/** The BoxComponent being used for movement collision. Always treated as being vertically aligned in simple collision check functions */
 	UPROPERTY(Category = Character, VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	UBoxComponent* Collider;
-	
+
 	/** Character's movement component */
 	UPROPERTY(Category = Character, VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	UAFPSPlayerMoveComponent* MovementComponent;
@@ -164,12 +164,12 @@ public:
 	void ScrollDown();
 
 	/**
-	 * Gets and immediately consumes the movement input where 
+	 * Gets and immediately consumes the movement input where
 	 * X is forward [W] and back [S] (1.0 to -1.0) and Y is right [D] and left [A] (1.0 to - 1.0)
 	 */
 	FVector2D ConsumeMovementInput();
 
 	/** Gets and immediately consumes mouse input */
 	FVector2D ConsumeMouseInput();
-	
+
 };

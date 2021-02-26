@@ -1,10 +1,10 @@
-/* 
+/*
  * AFPS Player
- * 
+ *
  * Updated for UE 4.26 and made into a plugin by Alex Kyron
  * Copyright (C) Alexander Kyron 2020 <alex@alexkyron.xyz>
  *
- * Originally forked from DeFragr: 
+ * Originally forked from DeFragr:
  * Copyright (C) Terence-Lee 'Zinglish' Davis
  * Written by Terence-Lee 'Zinglish' Davis <zinglish[at]gmail.com>
  */
@@ -82,20 +82,20 @@ AAFPSPlayer::AAFPSPlayer()
 
 }
 
-void AAFPSPlayer::SetupPlayerInputComponent(UInputComponent* InputComponent)
+void AAFPSPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
-	check(InputComponent);
+	check(PlayerInputComponent);
 
 	// Set up movement
-	InputComponent->BindAxis("MoveForward", this, &AAFPSPlayer::MoveForward);
-	InputComponent->BindAxis("MoveRight", this, &AAFPSPlayer::MoveRight);
+	PlayerInputComponent->BindAxis("MoveForward", this, &AAFPSPlayer::MoveForward);
+	PlayerInputComponent->BindAxis("MoveRight", this, &AAFPSPlayer::MoveRight);
 
-	InputComponent->BindAction("Jump", IE_Pressed, this, &AAFPSPlayer::DoJump);
-	InputComponent->BindAction("Jump", IE_Released, this, &AAFPSPlayer::StopJump);
+	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &AAFPSPlayer::DoJump);
+	PlayerInputComponent->BindAction("Jump", IE_Released, this, &AAFPSPlayer::StopJump);
 
 	// Set up mouse inputs
-	InputComponent->BindAxis("Turn", this, &AAFPSPlayer::MouseX);
-	InputComponent->BindAxis("LookUp", this, &AAFPSPlayer::MouseY);
+	PlayerInputComponent->BindAxis("Turn", this, &AAFPSPlayer::MouseX);
+	PlayerInputComponent->BindAxis("LookUp", this, &AAFPSPlayer::MouseY);
 
 }
 
@@ -180,7 +180,7 @@ void AAFPSPlayer::SetRotation(FQuat NewRotation)
 	NewCameraRotation.Roll = 0.f;
 	NewCameraRotation.Yaw  = 0.f;
 	FirstPersonCameraComponent->SetRelativeRotation(NewCameraRotation);
-	
+
 
 	// Squash the roll and pitch of the rotation for the Z
 	// rotation of the actual player.
